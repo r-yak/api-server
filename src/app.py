@@ -6,10 +6,14 @@ import flask
 import numpy
 
 
+API_VERSION = 1
+API_BASEURL = f'/api/v{API_VERSION}'
+
+
 app = flask.Flask(__name__)
 
 
-@app.post('/')
+@app.post(API_BASEURL)
 def index():
     app.logger.info(f'data received (length: {len(flask.request.data)})')
 
