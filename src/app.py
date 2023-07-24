@@ -9,6 +9,8 @@ import numpy
 API_VERSION = 1
 API_BASEURL = f'/api/v{API_VERSION}'
 
+ALLOWED_IMAGE_SIZE = 256
+
 
 app = flask.Flask(__name__)
 
@@ -25,6 +27,9 @@ def index():
     # 이미지를 제대로 전달 받았는지 확인
     app.logger.debug('요청으로 받은 이미지를 input.png 로 저장하고 있습니다.')
     cv2.imwrite('input.png', bgr_image)
+
+    # 이미지의 크기가 256 x 256 인 경우에만 진행
+    assert bgr_image.shape[0] == ALLOWED_IMAGE_SIZE and bgr_image.shape[1] == ALLOWED_IMAGE_SIZE
 
     return flask.Response(status=http.HTTPStatus.OK)
 
